@@ -1,22 +1,25 @@
-12
-<?php
-echo "ttthtml";
-?>
-45
-<script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
-<script type="text/javascript"> 
-console.log(111);
-window.onload = function() { 
-console.log(12);
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="amputator84" content="width=device-width, user-scalable=no" />
+    <title>html5 page</title>
+    <script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
+</head>
+<body>
+ 
+<script type="text/javascript">
+ 
+window.onload = function() {
   VK.init(function() { 
-     // API initialization succeeded 
-     // Your code here 
-	 console.log(22);
+    console.log('init success');
   }, function() { 
-     // API initialization failed 
-     // Can reload page here 
-	 console.log(33);
-}, '5.69'); 
- }
-
+    console.log('init error');
+  }, '5.69');
+};
+ 
 </script>
+ 
+<input type="button" value="Перезагрузить страницу" onclick="window.location.reload()" />
+</body>
+</html>
