@@ -60,6 +60,7 @@ function doPost(e){
   }
 
   return ContentService.createTextOutput('Збсь');
+  
   //return ContentService.createTextOutput(e.parameter['html_ret']);
   
   //var aURL = 'https://api.vk.com/api.php?oauth=1&method=groups.getById&group_ids=govorit_poet,mathmarriageabelandkrell&fields=city';
