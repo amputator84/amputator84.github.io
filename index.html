@@ -32,7 +32,7 @@
                     title: 'EXPERIMENT',  //Допустим 'Х ROCK соседи'
                     need_html: 1
                 }, function(r) {
-                    //console.log(r.response.source);
+                    console.log(r.response.source);
                     document.getElementById('txtarr').textContent = r.response.source;
                 });
             }
