@@ -18,14 +18,29 @@
                 });
             }
             function getEvents(){
+                var d1 = new Date();
                 VK.Api.call('groups.get', {
                                             user_id: 5978179, 
                                             filter: "events", 
                                             extended: 1,
-                                            count: 200,
+                                            count: 20,
                                             fields: "city,start_date"
                 }, function(r) {
-                    document.getElementById('tut').textContent = r.response;
+                    var arr = r.response;
+                    var time = dat+'.'+mon+'.'+d1.getFullYear();
+                    for (i = 0; i < arr.length; i++) {
+                        var city = arr[i].city; //99 Nsk
+                        var name = arr[i].name; //Наименование на русском
+                        var s_name = arr[i].screen_name; //Английское наименование
+                        
+                        d1.setTime(parseFloat(arr[i].start_date)*1000);
+                        var dat = (d1.getDate() < 10)?'0'+d1.getDate():d1.getDate();
+                        var monInt = parseFloat(d1.getMonth())+1;
+                        var mon = (monInt < 10)?'0'+monInt:monInt;
+                        time = dat+'.'+mon+'.'+d1.getFullYear();
+                        console.log('Время - '+time+' Имя - '+name+' Англ - '+s_name+'\n\r');
+                        document.getElementById('tut').textContent = 'Время - '+time+' Имя - '+name+' Англ - '+s_name+'\n\r';
+                    }
                 });
             }
         </script>
