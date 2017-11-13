@@ -11,16 +11,29 @@
             VK.init({
                 apiId: 6191467
             });
+            /*выполнить GET_PAGES*/
             function getPages(){
                 VK.Api.call('execute.GET_PAGES', {}, function(r) {
                     document.getElementById('tut').textContent = r.response.source;
+                });
+            }
+            function getEvents(){
+                VK.Api.call('groups.get', {
+                                            user_id: 5978179, 
+                                            filter: "events", 
+                                            extended: 1,
+                                            count: 200,
+                                            fields: "city,start_date"
+                }, function(r) {
+                    document.getElementById('tut').textContent = r.response;
                 });
             }
         </script>
 
         <input type="button" value="Перезагрузить 2 страницу" onclick="window.location.reload()" />
         </br>
-        <input type="button" value="Вывести" onclick="getPages();" />
+        <input type="button" value="Вывести страницу" onclick="getPages();" />
+        <input type="button" value="Список встречек" onclick="getEvents();" />
         <? echo "ttttt"; ?>
         <!--VK.Api.call('groups.getById', {"group_ids":"govorit_poet"}, function(r) {console.log(r);});-->
         <!--VK.Api.call('execute.GET_TEST_NEW_N', {}, function(r) {console.log(r);});-->
