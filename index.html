@@ -28,7 +28,9 @@ window.onload = function() {
 <input type="button" value="Перезагрузить 2 страницу" onclick="window.location.reload()" />
 </br>
 <input type="button" value="Вывести" onclick="VK.Api.call('execute.GET_PAGES', {}, function(r) {document.getElementById('tut').textContent = r.response;});" />
-
+<?php
+echo "ttttt";
+?>
 <!--VK.Api.call('groups.getById', {"group_ids":"govorit_poet"}, function(r) {console.log(r);});-->
 <!--VK.Api.call('execute.GET_TEST_NEW_N', {}, function(r) {console.log(r);});-->
 <div id="tut">111</div>
