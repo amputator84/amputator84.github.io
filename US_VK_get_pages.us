@@ -1,0 +1,51 @@
+// ==UserScript==
+// @name         VK_get_pages
+// @namespace    https://vk.com/groups*
+// @version      0.1
+// @match        https://vk.com/groups*
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+function getPages() {
+    VK.Api.call('pages.get', {
+        owner_id: '-140683246',
+        page_id: '54778235',
+        need_html: 1
+    }, function(r) {
+        if (r) {
+            console.log(r);
+        }
+    });
+}
+setTimeout(function() {
+    var el = document.createElement("script");
+    el.type = "text/javascript";
+    el.src = "https://vk.com/js/api/openapi.js?149";
+    el.async = true;
+    document.body.appendChild(el);
+}, 0);
+setTimeout(function() {
+    VK.init({
+        apiId: 6204725
+    });
+    getPages();
+}, 1000);
+
+/* ____VK_____
+
+var out = (API.pages.get({
+        owner_id: -140683246,
+        page_id: 54778235,
+        need_html: 1
+}));
+
+return(out.html);
+
+ ____VK_____ */
+
+//@namespace поменять

@@ -1,0 +1,38 @@
+// ==UserScript==
+// @name        NAME_SCRIPT
+// @namespace   NAME_SCRIPT
+// @include     http://www.site.ru*
+// @version     1
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+
+//Ограничение по сайту
+if (location.origin == 'http://www.site.ru') {}
+
+//Пауза
+setTimeout(function() {}, 0);
+
+//GET
+GM_xmlhttpRequest({
+    method: 'GET',
+    url: 'www.site.ru/?var=1',
+    headers: {
+        'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+        'Accept': 'application/atom+xml,application/xml,text/xml',
+    },
+    onload: function(x) {
+        console.log(x.responseText);
+    }
+});
+
+/* ____VK_____
+ 
+text
+
+ ____VK_____ */

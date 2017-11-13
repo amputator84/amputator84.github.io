@@ -1,0 +1,43 @@
+// ==UserScript==
+// @name         VK_get_events
+// @namespace    https://vk.com/*
+// @version      0.1
+// @match        https://vk.com/*
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+
+var arr = document.querySelectorAll('.group_row_labeled');
+var arr2 = '';
+for(var i = 0; i < arr.length; i++){
+	if (arr[i].querySelector('.group_row_title')){
+		arr2 = arr2 + arr[i].querySelector('.group_row_title').getAttribute('href').replace('/','')+',';
+	}
+}
+
+/* ____VK_____
+ 
+var t = (API.groups.get({
+      user_id: 5978179, 
+      filter: "events", 
+      extended: 1,
+      count: 20,
+      fields: "city,start_date"
+     }));
+var arr={};
+var i = 0;//t.items.length-1;
+while (i <= 5) {
+    arr.push("name2:"+t.items[i].name);
+    arr.push("screen_name2:"+t.items[i].screen_name);
+    arr.push("city2:"+t.items[i].city.title);
+    arr.push("start_date2:"+t.items[i].start_date);
+    i = i + 1;
+};
+return(arr);
+
+ ____VK_____ */

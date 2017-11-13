@@ -1,0 +1,179 @@
+// ==UserScript==
+// @name        RM_console_esc
+// @namespace   RM_console_esc
+// @include     http://localhost:8061*
+// @include     http://172.21.21.61*
+// @include     http://172.21.21.63*
+// @include     http://172.21.21.23:92*
+// @include     http://med-demo.bars-open.ru/med2*
+// @include     http://192.168.224.70/med2des*
+// @include     http://localhost:8004*
+// @include     http://81.177.97.59*
+// @include     http://172.21.21.63:8004*
+// @include     http://localhost:8070*
+// @include     http://192.168.224.69:28080*
+// @include     http://192.168.224.69:22080*
+// @include     http://localhost:8065*
+// @include     http://localhost:8070*
+// @include     http://172.21.21.63:8065*
+// @include     http://172.21.21.24:8080*
+// @include     http://172.21.21.27*
+// @include     http://172.21.21.24:8280
+// @include     http://localhost:8027*
+// @include     http://localhost:8029*
+// @include     https://task.bars-open.ru*
+// @version     1
+// @grant       none
+// ==/UserScript==
+
+/*Console + Esc + Redmine*/
+/*Скрипт выводит в консоль переменные с окон, закрывает окно по нажатию на ESC и добавляет кнопки для удобства в редмайне*/
+
+/*В редмайне нажимать кнопку "Сделал", когда задача готова*/
+if (location.origin == 'https://task.bars-open.ru') {
+  var d = document.createElement('div');
+  document.querySelectorAll('.splitcontentleft') [0].querySelectorAll('p') [0].appendChild(d);
+  d.style['color'] = 'green';
+  d.style.width = '100px';
+  d.textContent = 'Сделал';
+  d.addEventListener('click', function () {
+    var t = $('#issue_custom_field_values_27 option:selected').text();
+    //Аналитик в Назначена
+    $('#issue_assigned_to_id :contains(\'' + t + '\')').attr('selected', 'selected');
+    //Статус
+    $('#issue_status_id :contains(\'Реализовано\')').attr('selected', 'selected');
+    //Деятельность
+    $('#time_entry_activity_id :contains(\'Разработка\')').attr('selected', 'selected');
+    //Текущее состояние
+    $('#issue_custom_field_values_36 :contains(\'Реализовано\')').attr('selected', 'selected');
+  });
+
+  var d2 = document.createElement('div');
+  document.querySelectorAll('.splitcontentleft')[0].querySelectorAll('p') [0].appendChild(d2);
+  d2.style['color'] = 'green';
+  d2.style.width = '100px';
+  d2.textContent = 'CR';
+  d2.addEventListener('click', function () {
+    var t = $('#issue_custom_field_values_27 option:selected').text();
+    //Назначена
+    $('#issue_assigned_to_id :contains(\'Скурыгин Никита\')').attr('selected', 'selected');
+    //Статус
+    $('#issue_status_id :contains(\'Реализовано\')').attr('selected', 'selected');
+    //Деятельность
+    $('#time_entry_activity_id :contains(\'Разработка\')').attr('selected', 'selected');
+    //Текущее состояние
+    $('#issue_custom_field_values_36 :contains(\'Code Review\')').attr('selected', 'selected');
+  });
+
+  /*js, sql....*/
+  var js = document.createElement('div');
+  var sql = document.createElement('div');
+  var xml = document.createElement('div');
+  var php = document.createElement('div');
+  var diff = document.createElement('div');
+  var coll = document.createElement('div');
+  document.querySelectorAll('.jstElements')[1].appendChild(js);
+  document.querySelectorAll('.jstElements')[1].appendChild(sql);
+  document.querySelectorAll('.jstElements')[1].appendChild(xml);
+  document.querySelectorAll('.jstElements')[1].appendChild(php);
+  document.querySelectorAll('.jstElements')[1].appendChild(diff);
+  document.querySelectorAll('.jstElements')[1].appendChild(coll);
+
+  js.style['color'] = 'green';
+  js.style.width = '100px';
+  js.textContent = 'JS ';
+  js.addEventListener('click', function () {
+	var code = '\n<pre>\n <code class="js">\n\n </code>\n</pre>';
+	var txt = document.querySelector('#issue_notes');
+	txt.value = txt.value+code;
+  });
+
+  sql.style['color'] = 'green';
+  sql.style.width = '100px';
+  sql.textContent = 'SQL ';
+  sql.addEventListener('click', function () {
+	var code = '\n<pre>\n <code class="sql">\n\n </code>\n</pre>';
+	var txt = document.querySelector('#issue_notes');
+	txt.value = txt.value+code;
+  });
+
+  xml.style['color'] = 'green';
+  xml.style.width = '100px';
+  xml.textContent = 'XML ';
+  xml.addEventListener('click', function () {
+	var code = '\n<pre>\n <code class="xml">\n\n </code>\n</pre>';
+	var txt = document.querySelector('#issue_notes');
+	txt.value = txt.value+code;
+  });
+
+  php.style['color'] = 'green';
+  php.style.width = '100px';
+  php.textContent = 'PHP ';
+  php.addEventListener('click', function () {
+	var code = '\n<pre>\n <code class="php">\n\n </code>\n</pre>';
+	var txt = document.querySelector('#issue_notes');
+	txt.value = txt.value+code;
+  });
+
+  diff.style['color'] = 'green';
+  diff.style.width = '100px';
+  diff.textContent = 'DIFF ';
+  diff.addEventListener('click', function () {
+	var code = '\n<pre>\n <code class="diff">\n\n </code>\n</pre>';
+	var txt = document.querySelector('#issue_notes');
+	txt.value = txt.value+code;
+  });
+
+  coll.style['color'] = 'red';
+  coll.style.width = '100px';
+  coll.textContent = 'COLLAPSE ';
+  coll.addEventListener('click', function () {
+	var code = '{{collapse()\n\n}}';
+	var txt = document.querySelector('#issue_notes');
+	txt.value = txt.value+code;
+  });
+}
+addEvent(document, 'keydown', function (event) {
+  event = event || window.event;
+  if (event.keyCode == 120) /*F9 переменные в консоль*/
+  {
+    var len_sys = SYS_pages_window.length;
+    var s = SYS_pages_window;
+    var y = '';
+    var d = isUndefined(getPage(1).d3Form);
+    function setColorConsole(inp) {
+      console.log('%c' + inp, 'color:' + 'red' + ';font-weight:bold;');
+    }
+    for (var i = 0; i < len_sys; i++) {
+      y = len_sys - i - 1;
+      console.log('_____________________________');
+      if (d == true && SYS_pages_window[i].isNullObject !== true) {
+        if (y == 0) setColorConsole('Текущее окно _______ "' + getPage(y).form.name + '"');
+         else setColorConsole('Окно №' + y + ' _______ "' + getPage(y).form.name + '"');
+        for (var x in s[i].form.vars) {
+          if (!empty(s[i].form.vars[x])) console.log(x + '   -   ' + s[i].form.vars[x]);
+        }
+      }
+      if (d == false) {
+        if (y == 0) setColorConsole('Текущее окно _______ "' + getPage(y).d3Form.name + '"');
+         else setColorConsole('Окно №' + y + ' _______ "' + getPage(y).d3Form.name + '"');
+        for (var x in s[i].d3Form.vars) {
+          if (!empty(s[i].d3Form.vars[x])) console.log(x + '   -   ' + s[i].d3Form.vars[x]);
+        }
+      }
+    }
+    stopEvent(event);
+  }
+  if (event.keyCode == 113) /*F2 перезагрузка окна*/
+  {
+    window.reloadWindow();
+    stopEvent(event);
+  }
+  if (event.keyCode == 27) /*ESC - закрыть модальное окно*/
+  {
+    var close_but = document.querySelectorAll('[name=closeButton]');
+    var len_win_close = close_but.length;
+    if (len_win_close != 0) close_but[len_win_close - 1].click();
+    stopEvent(event);
+  }
+})

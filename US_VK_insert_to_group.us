@@ -1,0 +1,79 @@
+// ==UserScript==
+// @name         VK_insert_to_group
+// @namespace    https://vk.com/*
+// @version      0.1
+// @match        https://vk.com/*
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+if (document.querySelector('#join_button') !== null || document.querySelector('#public_subscribe') !== null) {
+    var el = (document.querySelector('#join_button') !== null) ? document.querySelector('#join_button') : document.querySelector('#public_subscribe');
+    var name_but = '';
+    if (document.querySelector('#join_button') !== null) name_but = 'join_button';
+    if (document.querySelector('#public_subscribe') !== null) name_but = 'public_subscribe';
+    if (document.querySelector('div [title="Местоположение"]') !== null) {
+        var city_name = document.querySelector('div [title="Местоположение"]').textContent;
+    }
+    var url_first = 'https://script.google.com/macros/s/AKfycbwg1x0pf0q8hpUH1drF7xqN9zNyDHGMDxEI7nJM-pdvQoIuWDyY/exec';
+    var che = document.createElement('input');
+    che.setAttribute('id', 'acoust_input');
+    che.setAttribute('type', 'checkbox');
+    var done = document.createElement('span');
+    done.setAttribute('id', 'done_ret');
+    var but = document.createElement('button');
+    but.setAttribute('id', 'done');
+    but.textContent = 'DONE';
+    var d = document.createElement('input');
+    d.setAttribute('placeholder', 'GENRE');
+    d.setAttribute('id', 'genre_input');
+    d.style.width = '50px';
+    document.querySelector('#' + name_but).parentNode.parentNode.appendChild(d);
+    document.querySelector('#' + name_but).parentNode.parentNode.appendChild(but);
+    document.querySelector('#' + name_but).parentNode.parentNode.appendChild(che);
+    document.querySelector('#' + name_but).parentNode.parentNode.appendChild(done);
+    var url_short = document.location.href.replace("https://vk.com/", "");
+    but.onclick = function() {
+        setTimeout(function() {
+            var acoust_input = document.querySelector('#acoust_input').checked;
+            if (acoust_input === true) acoust_input = 11;
+            GM_xmlhttpRequest({
+                method: 'GET',
+                url: url_first + '?name_url=' + url_short + '&city_name=' + city_name + '&acoust_input=' + acoust_input + '&genre=',
+                headers: {
+                    'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+                    'Accept': 'application/atom+xml,application/xml,text/xml',
+                },
+                onload: function(x) {
+                    document.querySelector('#done_ret').textContent = x.responseText;
+                }
+            });
+        }, 0);
+    };
+    d.addEventListener('change', function() {
+        var url_short = document.location.href.replace("https://vk.com/", "");
+        var genre = document.querySelector('#genre_input').value;
+        but.onclick = function() {
+            setTimeout(function() {
+                var acoust_input = document.querySelector('#acoust_input').checked;
+                if (acoust_input === true) acoust_input = 11;
+                GM_xmlhttpRequest({
+                    method: 'GET',
+                    url: url_first + '?name_url=' + url_short + '&city_name=' + city_name + '&genre=' + genre + '&acoust_input=' + acoust_input,
+                    headers: {
+                        'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+                        'Accept': 'application/atom+xml,application/xml,text/xml',
+                    },
+                    onload: function(x) {
+                        document.querySelector('#done_ret').textContent = x.responseText;
+                        el.click();
+                    }
+                });
+            }, 0);
+        };
+    }, false);
+}

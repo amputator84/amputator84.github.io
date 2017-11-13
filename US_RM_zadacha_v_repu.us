@@ -1,0 +1,44 @@
+// ==UserScript==
+// @name         RM_zadacha_v_repu
+// @namespace    https://task.bars-open.ru/issues/*
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://task.bars-open.ru/issues/*
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+
+var num = window.location.href.replace('https://task.bars-open.ru/issues/','');
+
+var but = document.createElement('button');
+but.setAttribute('id', 'done');
+but.textContent = 'Задачу в репу';
+
+var che = document.createElement('input');
+che.setAttribute('id', 'uf_inp');
+che.setAttribute('type', 'checkbox');
+
+document.querySelector('#quick-search').parentNode.appendChild(but);
+document.querySelector('#quick-search').parentNode.appendChild(che);
+
+but.onclick = function() {
+    setTimeout(function() {
+        var uf_inp = document.querySelector('#uf_inp').checked;
+        if (uf_inp === true) uf_inp = 1;
+        GM_xmlhttpRequest({
+            method: 'GET',
+            url: 'http://localhost:8029/upd2.php?uf='+uf_inp+'&branch='+num,
+            onload: function(x) {
+                setTimeout(function() {
+                    console.log(x);
+                }, 1000);
+            }
+        });
+    }, 0);
+};

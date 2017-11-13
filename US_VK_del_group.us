@@ -1,0 +1,36 @@
+// ==UserScript==
+// @name         VK_del_group
+// @namespace    https://vk.com/groups*
+// @version      0.1
+// @match        https://vk.com/groups*
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+
+/* ____VK_____
+ 
+var t = (API.groups.getInvites({
+      user_id: 5978179, 
+      filter: "events", 
+      extended: 1,
+      count: 20,
+      fields: "city"
+     }));
+var i = 0;
+while (i <= t.items.length-1) {
+    if (t.items[i].city.id == 1 || t.items[i].city.id == 2){
+        (API.groups.leave({
+              group_id: t.items[i].id
+             }));  
+    }
+    i = i + 1;
+};
+//https://api.vk.com/method/execute.DEL_GROUP?access_token=
+return (true);
+
+ ____VK_____ */
