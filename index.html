@@ -23,6 +23,7 @@
                     document.getElementById('tut').textContent = r.response.source;
                 });
             }
+            /*Получить содержимое экспериментальной страницы*/
             function getPagesEx(){
                 VK.Api.call('pages.get', 
                 {
@@ -31,12 +32,13 @@
                     title: 'EXPERIMENT',  //Допустим 'Х ROCK соседи'
                     need_html: 1
                 }, function(r) {
-                    console.log(r.response.source);
+                    //console.log(r.response.source);
+                    document.getElementById('txtarr').textContent = r.response.source;
                 });
             }
             /*Сохранение страницы*/
             function savePagesEx(){
-                var txt = '232323';
+                var txt = document.getElementById('txtarr').textContent;
                 VK.Api.call('pages.save', 
                 {
                     group_id: 140683246, 
@@ -80,14 +82,14 @@
 
         <input type="button" value="Перезагрузить 2 страницу" onclick="window.location.reload()" />
         <br/>
-        <input type="button" value="Вывести страницу" onclick="getPages();" />
-        <input type="button" value="Список встречек" onclick="getEvents();" />
-        <input type="button" value="Получить текст экспериментальной страницы" onclick="getPagesEx();" />
+        <input type="button" value="Вывести страницу" onclick="getPages();" /><br/>
+        <input type="button" value="Список встречек" onclick="getEvents();" /><br/>
+        <input type="button" value="Получить текст экспериментальной страницы" onclick="getPagesEx();" /><br/>
         <input type="button" value="Сохранить текст экспериментальной страницы" onclick="savePagesEx();" />
         <? echo "ttttt"; ?>
         <!--VK.Api.call('groups.getById', {"group_ids":"govorit_poet"}, function(r) {console.log(r);});-->
         <!--VK.Api.call('execute.GET_TEST_NEW_N', {}, function(r) {console.log(r);});-->
         <div id="tut">111</div>
-        <textarea>4444444</textarea>
+        <textarea id="txtarr" rows="10" cols="50"></textarea>
     </body>
 </html>
