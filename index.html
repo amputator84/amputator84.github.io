@@ -33,12 +33,12 @@
                     need_html: 1
                 }, function(r) {
                     console.log(r.response.source);
-                    document.getElementById('txtdiv').textContent = r.response.source;
+                    document.getElementById('txtdiv').innerHTML = r.response.source;
                 });
             }
             /*Сохранение страницы*/
             function savePagesEx(){
-                var txt = document.getElementById('txtdiv').textContent;
+                var txt = document.getElementById('txtdiv').innerHTML;
                 VK.Api.call('pages.save', 
                 {
                     group_id: 140683246, 
