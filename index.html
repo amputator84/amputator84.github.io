@@ -33,12 +33,12 @@
                     need_html: 1
                 }, function(r) {
                     console.log(r.response.source);
-                    document.getElementById('txtarr').textContent = r.response.source;
+                    document.getElementById('txtdiv').textContent = r.response.source;
                 });
             }
             /*Сохранение страницы*/
             function savePagesEx(){
-                var txt = document.getElementById('txtarr').textContent;
+                var txt = document.getElementById('txtdiv').textContent;
                 VK.Api.call('pages.save', 
                 {
                     group_id: 140683246, 
@@ -90,6 +90,6 @@
         <!--VK.Api.call('groups.getById', {"group_ids":"govorit_poet"}, function(r) {console.log(r);});-->
         <!--VK.Api.call('execute.GET_TEST_NEW_N', {}, function(r) {console.log(r);});-->
         <div id="tut">111</div>
-        <textarea id="txtarr" rows="10" cols="50"></textarea>
+        <div id="txtdiv" contenteditable="true" style="border: 1px solid black;"></div>
     </body>
 </html>
