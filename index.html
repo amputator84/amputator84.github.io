@@ -8,6 +8,12 @@
     <body>
         <script src="https://vk.com/js/api/openapi.js?150" type="text/javascript"></script>
         <script type="text/javascript">
+            
+            /*
+             * 140683246 - ID группы Узнай наших
+             * 140683246_55308520 - ID экспериментальной страницы
+             */
+            
             VK.init({
                 apiId: 6191467
             });
@@ -17,14 +23,41 @@
                     document.getElementById('tut').textContent = r.response.source;
                 });
             }
+            function getPagesEx(){
+                VK.Api.call('pages.get', 
+                {
+                    owner_id: -140683246, 
+                    //page_id: 55308520,
+                    title: 'EXPERIMENT',  //Допустим 'Х ROCK соседи'
+                    need_html: 1
+                }, function(r) {
+                    console.log(r.response.source);
+                });
+            }
+            /*Сохранение страницы*/
+            function savePagesEx(){
+                var txt = '232323';
+                VK.Api.call('pages.save', 
+                {
+                    group_id: 140683246, 
+                    //page_id: 55308520,
+                    title: 'EXPERIMENT',
+                    text: txt
+                }, function(r) {
+                    console.log(r);
+                });
+            }
+            
             function getEvents(){
                 var d1 = new Date();
-                VK.Api.call('groups.get', {
-                                            user_id: 5978179, 
-                                            filter: "events", 
-                                            extended: 1,
-                                            count: 20,
-                                            fields: "city,start_date"
+                VK.Api.call('groups.get', 
+                {
+                    user_id: 5978179, 
+                    filter: "events", 
+                    extended: 1,
+                    offset: 0,
+                    count: 40,
+                    fields: "city,start_date"
                 }, function(r) {
                     var arr = r.response;
                     var time = dat+'.'+mon+'.'+d1.getFullYear();
@@ -39,7 +72,7 @@
                         var mon = (monInt < 10)?'0'+monInt:monInt;
                         time = dat+'.'+mon+'.'+d1.getFullYear();
                         console.log('Время - '+time+' Имя - '+name+' Англ - '+s_name+'\n\r');
-                        document.getElementById('tut').textContent = 'Время - '+time+' Имя - '+name+' Англ - '+s_name+'\n\r';
+                        document.getElementById('tut').textContent += 'Время - '+time+' Имя - '+name+' Англ - '+s_name+'</br>';
                     }
                 });
             }
