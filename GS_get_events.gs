@@ -47,7 +47,7 @@ function doPost(e){
         start_date = arr[i].start_date;
         city = arr[i].city;
         url = 'vk.com/'+short_name;
-        
+
         numRows = sheet.getLastRow()+1;
         sheet.insertRowsAfter(numRows, 1);
         sheet.getRange("A"+numRows).setValue(name_rus);
