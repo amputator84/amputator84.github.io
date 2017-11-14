@@ -27,11 +27,10 @@
 	</style>
 </head>
 <body id="index" onload="">
-    <div id="div2"></div>
 	<div class="block">
 		<div id="likeform">
 			<label for="url">Script URL</label>
-			<input type="text" name="url" value="https://script.google.com/macros/s/AKfycbwg1x0pf0q8hpUH1drF7xqN9zNyDHGMDxEI7nJM-pdvQoIuWDyY/exec?bukva=erer" id="url"/>
+			<input type="text" name="url" value="https://script.google.com/macros/s/AKfycbykUHXrmi014R-BpNBey005m02v_CV-OphDBIfSIjKxgajm4ZIv/exec" id="url"/>
 			<label for="id">ID of Sheet</label>
 			<input type="text" name="id" value="19d948qIBG3CUwvMxRG90sJZf4rYBZwY4X2O3R9zSlEo" id="id"/>
 			<label for="sh">Sheet name</label>
@@ -69,14 +68,13 @@
 				var self = this;
 				var xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
-					//self.onreadystatechange(xmlhttp);
+					self.onreadystatechange(xmlhttp);
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-						//self.ready(xmlhttp);
-            documnt.getElementById('div2').innerHTML = xmlhttp;
+						self.ready(xmlhttp);
 					};
 				};
 
-				xmlhttp.open('GET', 'https://script.google.com/macros/s/AKfycbwg1x0pf0q8hpUH1drF7xqN9zNyDHGMDxEI7nJM-pdvQoIuWDyY/exec?bukva=erer2', true);
+				xmlhttp.open('POST', self.url, true);
 				xmlhttp.send(this.params);
 			};
 			_go_.Sender = Sender;
