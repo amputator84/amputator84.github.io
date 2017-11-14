@@ -1,97 +1,97 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="amputator84" content="width=device-width, user-scalable=no" />
-        <title>Mishgen</title>
-    </head>
-    <body>
-        <script src="https://vk.com/js/api/openapi.js?150" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript">
-            
-            /*
-             * 140683246 - ID группы Узнай наших
-             * 140683246_55308520 - ID экспериментальной страницы
-             */
-            
-            VK.init({
-                apiId: 6191467
-            });
-            /*выполнить GET_PAGES*/
-            function getPages(){
-                VK.Api.call('execute.GET_PAGES', {}, function(r) {
-                    document.getElementById('tut').textContent = r.response.source;
-                });
-            }
-            /*Получить содержимое экспериментальной страницы*/
-            function getPagesEx(){
-                VK.Api.call('pages.get', 
-                {
-                    owner_id: -140683246, 
-                    //page_id: 55308520,
-                    title: 'EXPERIMENT',  //Допустим 'Х ROCK соседи'
-                    need_html: 1
-                }, function(r) {
-                    console.log(r.response.source);
-                    document.getElementById('txtarea').innerHTML = r.response.source;
-                });
-            }
-            /*Сохранение страницы*/
-            function savePagesEx(){
-                var txt = document.getElementById('txtarea').value;
-                VK.Api.call('pages.save', 
-                {
-                    group_id: 140683246, 
-                    //page_id: 55308520,
-                    title: 'EXPERIMENT',
-                    text: txt
-                }, function(r) {
-                    console.log(r);
-                });
-            }
-            
-            function getEvents(){
-                var d1 = new Date();
-                VK.Api.call('groups.get', 
-                {
-                    user_id: 5978179, 
-                    filter: "events", 
-                    extended: 1,
-                    offset: 0,
-                    count: 40,
-                    fields: "city,start_date"
-                }, function(r) {
-                    var arr = r.response;
-                    var time = dat+'.'+mon+'.'+d1.getFullYear();
-                    for (i = 0; i < arr.length; i++) {
-                        var city = arr[i].city; //99 Nsk
-                        var name = arr[i].name; //Наименование на русском
-                        var s_name = arr[i].screen_name; //Английское наименование
-                        
-                        d1.setTime(parseFloat(arr[i].start_date)*1000);
-                        var dat = (d1.getDate() < 10)?'0'+d1.getDate():d1.getDate();
-                        var monInt = parseFloat(d1.getMonth())+1;
-                        var mon = (monInt < 10)?'0'+monInt:monInt;
-                        time = dat+'.'+mon+'.'+d1.getFullYear();
-                        console.log('Время - '+time+' Имя - '+name+' Англ - '+s_name+'\n\r');
-                        document.getElementById('tut').textContent += 'Время - '+time+' Имя - '+name+' Англ - '+s_name+'<br/>';
-                    }
-                });
-            }
-        </script>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+	<title>index</title>
+	<style type="text/css" media="screen">
+		html {
+			font-size: .9em;
+		}
 
-        <input type="button" value="Перезагрузить 2 страницу" onclick="window.location.reload()" />
-        <br/>
-        <input type="button" value="Вывести страницу" onclick="getPages();" /><br/>
-        <input type="button" value="Список встречек" onclick="getEvents();" /><br/>
-        <input type="button" value="Получить текст экспериментальной страницы" onclick="getPagesEx();" /><br/>
-        <input type="button" value="Сохранить текст экспериментальной страницы" onclick="savePagesEx();" />
-        <? echo "ttttt"; ?>
-        <!--VK.Api.call('groups.getById', {"group_ids":"govorit_poet"}, function(r) {console.log(r);});-->
-        <!--VK.Api.call('execute.GET_TEST_NEW_N', {}, function(r) {console.log(r);});-->
-        <div id="tut">111</div>
-        <!--div id="txtdiv" contenteditable="true" style="border: 1px solid black;"></div-->
-        <textarea id="txtarea" style="display: block; height: 200px;"></textarea>
-    </body>
-</html>
+		.block {
+			padding: 20px;
+		}
+		#status, #myDiv {
+			text-align: left;
+			vertical-align: middle;
+			max-width: 60%;
+			text-overflow: ellipsis;
+			/* Required for text-overflow to do anything */
+			overflow: hidden;
+		}
+		#status:hover {
+			overflow: visible;
+		}
+		input[type=text] {
+			width: 100%;
+		}
+	</style>
+</head>
+<body id="index" onload="">
+	<div class="block">
+		<div id="likeform">
+			<label for="url">Script URL</label>
+			<input type="text" name="url" value="https://script.google.com/macros/s/AKfycbwg1x0pf0q8hpUH1drF7xqN9zNyDHGMDxEI7nJM-pdvQoIuWDyY/exec?bukva=erer" id="url"/>
+			<label for="id">ID of Sheet</label>
+			<input type="text" name="id" value="19d948qIBG3CUwvMxRG90sJZf4rYBZwY4X2O3R9zSlEo" id="id"/>
+			<label for="sh">Sheet name</label>
+			<input type="text" name="sh" value="Sheet1" id="sh"/>
+			<br>
+			<input type="button" name="SEND" value="SEND" id="SEND" onclick="send()" />
+		</div>
+	</div>
+	<div class="block">
+		<span>STATUS</span>
+		<div id="status"></div>
+	</div>
+	<div class="block">
+		<span>RESPONCE</span>
+		<div id="myDiv"></div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		(function(_go_) {
+			function Sender(url, json, onreadystatechange, ready) {
+				console.log('i\'m in ');
+				this.url = url;
+				this.params = (function(json) {
+					var d = new FormData();
+					for (var i in json) {
+						d.append(i, json[i]);
+					}
+					return d;
+				})(json);
+				this.onreadystatechange = onreadystatechange;
+				this.ready = ready;
+			}
+
+
+			Sender.prototype.postData = function() {
+				var self = this;
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					self.onreadystatechange(xmlhttp);
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						self.ready(xmlhttp);
+					};
+				};
+
+				xmlhttp.open('GET', self.url, true);
+				xmlhttp.send(this.params);
+			};
+			_go_.Sender = Sender;
+		})(window);
+
+		function send() {
+			new Sender(document.getElementById('url').value, {
+				'id' : document.getElementById('id').value,
+				'sh' : document.getElementById('sh').value
+			}, function(xmlhttp) {
+				document.getElementById('status').innerHTML = JSON.stringify(xmlhttp);
+			}, function(xmlhttp) {
+				document.getElementById('myDiv').innerHTML = xmlhttp.responseText;
+			}).postData();
+		}
+
+		send();
+
+	</script>
+</body>
