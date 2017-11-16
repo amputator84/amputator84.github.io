@@ -148,14 +148,20 @@ addEvent(document, 'keydown', function (event) {
       y = len_sys - i - 1;
       console.log('_____________________________');
       if (d == true && SYS_pages_window[i].isNullObject !== true) {
-        if (y == 0) setColorConsole('Текущее окно _______ "' + getPage(y).form.name + '"');
+        if (y == 0){
+            setColorConsole('Текущее окно _______ "' + getPage(y).form.name + '"');
+            setWindowCaption(getPage(y).form.name);
+        }
          else setColorConsole('Окно №' + y + ' _______ "' + getPage(y).form.name + '"');
         for (var x in s[i].form.vars) {
           if (!empty(s[i].form.vars[x])) console.log(x + '   -   ' + s[i].form.vars[x]);
         }
       }
       if (d == false) {
-        if (y == 0) setColorConsole('Текущее окно _______ "' + getPage(y).d3Form.name + '"');
+        if (y == 0){
+            setColorConsole('Текущее окно _______ "' + getPage(y).d3Form.name + '"');
+            setWindowCaption(getPage(y).form.name);
+        }
          else setColorConsole('Окно №' + y + ' _______ "' + getPage(y).d3Form.name + '"');
         for (var x in s[i].d3Form.vars) {
           if (!empty(s[i].d3Form.vars[x])) console.log(x + '   -   ' + s[i].d3Form.vars[x]);
@@ -176,4 +182,4 @@ addEvent(document, 'keydown', function (event) {
     if (len_win_close != 0) close_but[len_win_close - 1].click();
     stopEvent(event);
   }
-})
+});
