@@ -1,0 +1,33 @@
+https://vk.com/groups?act=events
+
+F12 - Network - https://vk.com/al_groups.php - Response
+
+qqq = CTRL + V
+
+var arr = JSON.parse(qqq);
+arr2 = '';
+for (var i = 0; i < arr.length; i++){
+arr2 = arr2 + arr[i][2] + ',';
+}
+
+window.location.href = 'https://vk.com/editapp?id=6204725&section=functions';
+
+document.querySelector('.ace_content').textContent = '
+var ids = \"'+arr2+'\";
+var t = (API.groups.getById({
+      group_ids: ids,
+      extended: 1,
+      count: 200,
+      fields: "city,place,description,start_date"
+     }));
+return (t);
+';
+
+document.querySelector('.apps_edit_save_button').click();
+document.querySelector('.apps_edit_run_button').click();
+
+dev - response
+
+https://json-csv.com
+
+https://docs.google.com/spreadsheets/d/1dxG33C006rj-14APZR35haD5BReHuWIDnPh-RfEi0NY/edit#gid=1889424661
