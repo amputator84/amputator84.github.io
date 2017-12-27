@@ -25,6 +25,9 @@
 // @grant       none
 // ==/UserScript==
 
+(function() {
+    'use strict';
+    
 function getAllVars(){
 	var len_sys = SYS_pages_window.length;
 	var s = SYS_pages_window;
@@ -44,9 +47,6 @@ function getAllVars(){
 		}
 	}
 }
-
-(function() {
-    'use strict';
 var ex = document.querySelector('.Exit');
 var br = document.createElement('br');
 var img = document.createElement('img');
