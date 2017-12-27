@@ -1,0 +1,67 @@
+// ==UserScript==
+// @name        KLUVIK
+// @namespace   KLUVIK
+// @include     http://localhost:8061*
+// @include     http://172.21.21.61*
+// @include     http://172.21.21.63*
+// @include     http://172.21.21.23:92*
+// @include     http://med-demo.bars-open.ru/med2*
+// @include     http://192.168.224.70/med2des*
+// @include     http://localhost:8004*
+// @include     http://81.177.97.59*
+// @include     http://172.21.21.63:8004*
+// @include     http://localhost:8070*
+// @include     http://192.168.224.69:28080*
+// @include     http://192.168.224.69:22080*
+// @include     http://localhost:8065*
+// @include     http://localhost:8070*
+// @include     http://172.21.21.63:8065*
+// @include     http://172.21.21.24:8080*
+// @include     http://172.21.21.27*
+// @include     http://172.21.21.24:8280
+// @include     http://localhost:8027*
+// @include     http://localhost:8029*
+// @version     1
+// @grant       none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    var ex = document.querySelector('.Exit');
+    var br = document.createElement('br');
+    var img = document.createElement('img');
+    img.className = 'view_attr';
+    img.setAttribute('onclick','var t = document.getElementById(\'spisok_gal\');if(t.style.display==\'none\'){setDomVisible(t,true)}else{setDomVisible(t);};');
+    ex.appendChild(br);
+    ex.appendChild(img);
+    var div = document.createElement('div');
+    div.innerHTML = '<div class="spisok_gal" id="spisok_gal" style="display:none;">'+
+        '<img class="win_close" src="Images/s.gif" onclick="setDomVisible(document.getElementById(\'spisok_gal\'));"/>'+
+        '<input type="Button" value="Все переменные в консоль" onclick="getAllVars();" /><br/>'+
+        '<input type="Button" value="Названия форм" onclick="setColorHeaderWay();" /><br/>'+
+        '<input type="Button" value="Названия субформ" onclick="setColorHeaderSubWay();" /><br/>'+
+        '<input type="Button" value="Путь до отчёта" onclick="setColorHeaderReportWay();" /><br/>'+
+        '<input type="Button" value="Отчёт в новом окне" onclick="window.open(window.self[0].location.href, \'_blank\');" /><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="setTabsName(this.checked);"/>Названия вкладок</label><br/><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'Edit\',this.checked);"/> Поля</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'ButtonEdit\',this.checked);"/>Выбор из словаря</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'DateEdit\',this.checked);"/> Дата</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'ComboBox\',this.checked);"/> Список</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'Label\',this.checked);"/> Надпись</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'CheckBox\',this.checked);"/> Галочка</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'Container\',this.checked);"/> Контейнер</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'TextArea\',this.checked);"/> Ручной ввод в TextArea</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'FillingTextArea\',this.checked);"/> Мед.словарь</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'Button\',this.checked);"/> Кнопка</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'Column\',this.checked);"/> Колонка таблицы</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'GridData\',this.checked);"/> Таблица</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'GridData2\',this.checked);"/> Таблица общая</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'StatGridTable\',this.checked);"/> StatGridTable</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'StatGridGroups\',this.checked);"/> StatGridGroups</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'GroupItems\',this.checked);"/> GroupItems</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'TreeColumn\',this.checked);"/> Дерево</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'TreeRow\',this.checked);"/> Дерево2</label><br/>'+
+        '<label><input type="checkbox" class="chec" onchange="getNameAttrAll(\'vistab\',this.checked);"/> Вкладка вертикальная</label>'+
+        '</div>';
+    ex.appendChild(div);
+})();
