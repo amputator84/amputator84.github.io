@@ -1,0 +1,244 @@
+
+//Показать имена элементов
+function getAllElemWindow(name,nazvTable,mass){
+	var el = document.getElementsByTagName(nazvTable);
+	for (var u=0; u<el.length; u++) {
+		if(el[u].getAttribute('cmptype')==name){	
+			var t = '';
+			for (var m=0; m<mass.length; m++){
+				var nam = mass[m].split(/[;]/);
+				var nam_eng = nam[0];
+				var nam_rus = nam[1];
+				if (el[u].hasAttribute(nam_eng) && el[u].getAttribute(nam_eng)!==''){
+					//alert ();
+					t += '<div>'+nam_rus +' -- <font color="FFFFFF"><strong>'+el[u].getAttribute(nam_eng)+'</strong></font></div>';
+				}
+			}
+			el[u].innerHTML = el[u].innerHTML+'<div class="abs" cmptype2="'+name+'">'+t+'</div>';
+		}
+	}
+}
+
+//Показать имена элементов (всех)
+function getNameAttrAll(inn,che){
+
+	//Название выбор из словаря
+	if (inn=='ButtonEdit' && che==true){
+		var mass = new Array('name;Имя','template_field;Название поля','datafield;Код поля','composition;Код композиции','unit;Код раздела','view;Имя предпросм.');
+		var arr  = new Array(inn,'table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='ButtonEdit' && che==false) closeNameAttr('ButtonEdit');
+	
+	//Кнопка
+	if (inn=='Button' && che==true){
+	var mass = new Array('name;Имя кнопки');
+	var arr  = new Array('Button','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='Button' && che==false) closeNameAttr('Button');
+	
+	//Список
+	if (inn=='ComboBox' && che==true){
+	var mass = new Array('name;Имя списка','template_field;Название поля','extradict;extradict','unit;Код раздела','datafield;datafield','view;Имя предпросм.');
+	var arr  = new Array('ComboBox','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='ComboBox' && che==false) closeNameAttr('ComboBox');	
+	
+	//Поля вкладки на визите
+	if (inn=='Edit' && che==true){
+	var mass = new Array('name;Имя поля','template_field;Название поля','datafield;Название поля контейнера','view;Имя предпросм.');
+	var arr  = new Array('Edit','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='Edit' && che==false) closeNameAttr('Edit');	
+	
+	//Название контейнера
+	if (inn=='Container' && che==true){
+	var mass = new Array('name;Имя контейнера','vistab;Название вкладки','view;Имя предпросм.');
+	var arr  = new Array('Container','tbody');
+		getAllElemWindow(arr[0],arr[1],mass);
+			//Второй способ
+	var mass = new Array('name;Имя','template_field;Название поля','container;Название контейнера','dataset;dataset','view;Имя предпросм.');
+	var arr  = new Array('Container','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='Container' && che==false) closeNameAttr('Container');
+	
+	//Мед. словарь
+	if (inn=='TextArea' && che==true){
+	var mass = new Array('name;Имя TextArea','view;Имя предпросм.');
+	var arr  = new Array('TextArea','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='TextArea' && che==false) closeNameAttr('TextArea');
+	
+	//Мед. словарь
+	if (inn=='FillingTextArea' && che==true){
+	var mass = new Array('name;Имя мед.словаря','template_field;Название словаря','container;Название контейнера','view;Имя предпросм.');
+	var arr  = new Array('FillingTextArea','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='FillingTextArea' && che==false) closeNameAttr('FillingTextArea');
+	
+	//Дата
+	if (inn=='DateEdit' && che==true){
+	var mass = new Array('name;Имя даты','template_field;Название поля даты','view;Имя предпросм.');
+	var arr  = new Array('DateEdit','div');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='DateEdit' && che==false) closeNameAttr('DateEdit');
+	
+	//Галочка
+	if (inn=='CheckBox' && che==true){
+	var mass = new Array('name;Имя галочки','template_field;Название поля галочки','datafield;Название галочки контейнера','view;Имя предпросм.');
+	var arr  = new Array('CheckBox','span');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='CheckBox' && che==false) closeNameAttr('CheckBox');
+	
+	//Надпись
+	if (inn=='Label' && che==true){
+	var mass = new Array('name;Имя надписи','view;Имя предпросм.');
+	var arr  = new Array('Label','span');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='Label' && che==false) closeNameAttr('Label');
+	
+	//Колонка таблицы
+	if (inn=='Column' && che==true){
+	var mass = new Array('name;Имя колонки','column_name;Название колонки','cont;field колонки','view;Имя предпросм.');
+	var arr  = new Array('Column','td');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='Column' && che==false) closeNameAttr('Column');
+	
+	//Таблица
+	if (inn=='GridData' && che==true){
+	var mass = new Array('name;Имя таблицы','view;Имя предпросм.');
+	var arr  = new Array('GridData','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='GridData' && che==false) closeNameAttr('GridData');
+	
+	//Таблица общая
+	if (inn=='GridData2' && che==true){
+	var mass = new Array('name;Имя таблицы2','dataset;Имя','field;Имя','view;Имя предпросм.');
+	var arr  = new Array('GridData','div');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='GridData2' && che==false) closeNameAttr('GridData2');
+	
+	//Дерево
+	if (inn=='TreeColumn' && che==true){
+	var mass = new Array('name;Имя дерева','hint;hint','view;Имя предпросм.');
+	var arr  = new Array('TreeColumn','td');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='TreeColumn' && che==false) closeNameAttr('TreeColumn');
+	
+	//Дерево2
+	if (inn=='TreeRow' && che==true){
+	var mass = new Array('name;Имя дерева2','datafield;datafield','captionfield;captionfield','keyvalue;keyvalue','captionvalue;captionvalue','view;Имя предпросм.');
+	var arr  = new Array('TreeRow','tr');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='TreeRow' && che==false) closeNameAttr('TreeRow');
+	
+	//StatGridGroups
+	if (inn=='StatGridGroups' && che==true){
+	var mass = new Array('name;Имя StatGrid');
+	var arr  = new Array('StatGridGroups','tr');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='StatGridGroups' && che==false) closeNameAttr('StatGridGroups');
+	
+	//StatGridTable
+	if (inn=='StatGridTable' && che==true){
+	var mass = new Array('name;Имя StatGrid');
+	var arr  = new Array('StatGridTable','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='StatGridTable' && che==false) closeNameAttr('StatGridTable');
+	
+	//GroupItems
+	if (inn=='GroupItems' && che==true){
+	var mass = new Array('name;Имя GroupItems');
+	var arr  = new Array('GroupItems','table');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='GroupItems' && che==false) closeNameAttr('GroupItems');
+	
+	//Вкладка вертикальная
+	if (inn=='vistab' && che==true){
+	var mass = new Array('name;Имя вкладки','view;Имя предпросм.');
+	var arr  = new Array('vistab','div');
+		getAllElemWindow(arr[0],arr[1],mass);
+	}
+	if (inn=='vistab' && che==false) closeNameAttr('vistab');
+	
+	
+	if (inn=='All' && che==false) closeNameAttr('All');
+}
+
+//Скрыть показанные имена элементов
+function closeNameAttr(name2){
+	var el = document.getElementsByClassName('abs'); 
+	var u = el.length-1;
+	for(u;u>=0;u--){ 
+		if (el[u].getAttribute('cmptype2')==name2) el[u].remove();
+		if (name2=='All') el[u].remove();
+	}
+}
+
+function getEventBut(e){
+    var w = e.getAttribute('onclick');
+    alert (w.search(new RegExp("\(\)\..+\((.+)\)", "i")));
+}
+
+function getAllVars(){
+	var len_sys = SYS_pages_window.length;
+	var s = SYS_pages_window;
+        var y = '';
+	function setColorConsole(inp){
+		console.log("%c" + inp, "color:" + 'red' + ";font-weight:bold;");
+	}
+	for(var i = 0;i<len_sys;i++){
+		if (SYS_pages_window[i].isNullObject !==true){
+                        y = len_sys - i - 1;
+			console.log('_____________________________');
+			if (y == 0) setColorConsole('Текущее окно _______ \"' + getPage(y).form.name + '\"');
+			else setColorConsole('Окно №' + y + ' _______ \"'+getPage(y).form.name + '\"'); 
+			for (var x in s[i].form.vars){
+				if (!empty(s[i].form.vars[x])) console.log(x+'   -   '+s[i].form.vars[x]);
+			}
+		}
+	}
+}
+function setColorHeaderWay() {
+    var len_sys = SYS_pages_window.length;
+    for (var i = 0; i < len_sys; i++) {
+        if (SYS_pages_window[i].isNullObject !== true) {
+            y = len_sys - i - 1;
+            if (y < len_sys - 2) getPage(y).setPageCaption(getWindowCaption(y) + ' <b><font style="color:blue">' + getPage(y).form.name + "</font></b>");
+        }
+    }
+}
+function setColorHeaderSubWay() {
+	var el = document.getElementsByTagName('table');
+	for (var u = 0; u < el.length; u++) {
+		if (el[u].getAttribute('cmptype') == 'Form') el[u].innerHTML = '<font color="red"><b>' + el[u].getAttribute('formname') + '</b></font>' + el[u].innerHTML;
+	}
+	var el2 = document.getElementsByTagName('div');
+	for (var u2 = 0; u2 < el2.length; u2++) {
+		if (el2[u2].getAttribute('cmptype') == 'Form') el2[u2].innerHTML = '<font color="red" onclick="opennn(\'UserFormsEgis3Novosib/'+el2[u2].getAttribute('formname')+'.frm\');"><b>' + el2[u2].getAttribute('formname') + '</a></b></font>' + el2[u2].innerHTML;
+	}
+}
+function setColorHeaderReportWay() {
+	var el = document.getElementsByTagName('iframe')[0].contentWindow.document.getElementsByTagName('div');
+	for (var u = 0; u < el.length; u++) 
+	{
+		if (!empty(el[u].getAttribute('formname')) == true) el[u].innerHTML = '<font color="red"><b>' + el[u].getAttribute('formname') + '</b></font>' + el[u].innerHTML;
+	}
+}
