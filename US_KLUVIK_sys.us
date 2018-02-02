@@ -1,4 +1,3 @@
-
 //Показать имена элементов
 function getAllElemWindow(name,nazvTable,mass){
 	var el = document.getElementsByTagName(nazvTable);
