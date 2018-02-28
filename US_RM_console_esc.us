@@ -21,6 +21,7 @@
 // @include     http://172.21.21.24:8280
 // @include     http://localhost:8027*
 // @include     http://localhost:8029*
+// @include     http://172.21.21.63:6054/
 // @include     https://task.bars-open.ru*
 // @version     1
 // @grant       none
@@ -56,7 +57,7 @@ if (location.origin == 'https://task.bars-open.ru') {
   d2.addEventListener('click', function () {
     var t = $('#issue_custom_field_values_27 option:selected').text();
     //Назначена
-    $('#issue_assigned_to_id :contains(\'Скурыгин Никита\')').attr('selected', 'selected');
+    $('#issue_assigned_to_id :contains(\'Окс Александр\')').attr('selected', 'selected');
     //Статус
     $('#issue_status_id :contains(\'Реализовано\')').attr('selected', 'selected');
     //Деятельность
@@ -66,18 +67,20 @@ if (location.origin == 'https://task.bars-open.ru') {
   });
 
   /*js, sql....*/
-  var js = document.createElement('div');
-  var sql = document.createElement('div');
-  var xml = document.createElement('div');
-  var php = document.createElement('div');
-  var diff = document.createElement('div');
-  var coll = document.createElement('div');
+  var js = document.createElement('span');
+  var sql = document.createElement('span');
+  var xml = document.createElement('span');
+  var php = document.createElement('span');
+  var diff = document.createElement('span');
+  var coll = document.createElement('span');
+  var cr = document.createElement('span');
   document.querySelectorAll('.jstElements')[1].appendChild(js);
   document.querySelectorAll('.jstElements')[1].appendChild(sql);
   document.querySelectorAll('.jstElements')[1].appendChild(xml);
   document.querySelectorAll('.jstElements')[1].appendChild(php);
   document.querySelectorAll('.jstElements')[1].appendChild(diff);
   document.querySelectorAll('.jstElements')[1].appendChild(coll);
+  document.querySelectorAll('.jstElements')[1].appendChild(cr);
 
   js.style['color'] = 'green';
   js.style.width = '100px';
@@ -120,6 +123,15 @@ if (location.origin == 'https://task.bars-open.ru') {
   diff.textContent = 'DIFF ';
   diff.addEventListener('click', function () {
 	var code = '\n<pre>\n <code class="diff">\n\n </code>\n</pre>';
+	var txt = document.querySelector('#issue_notes');
+	txt.value = txt.value+code;
+  });
+
+  cr.style['color'] = 'black';
+  cr.style.width = '100px';
+  cr.textContent = 'CR ';
+  cr.addEventListener('click', function () {
+	var code = '\nОтправляю "PR": на CR';
 	var txt = document.querySelector('#issue_notes');
 	txt.value = txt.value+code;
   });
