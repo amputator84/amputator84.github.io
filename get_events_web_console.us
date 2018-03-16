@@ -1,0 +1,13 @@
+var arr = document.querySelector('#groups_list_future').querySelectorAll('.group_row_photo');
+var arr2 = new Array();
+for (var i = 0; i < arr.length; i++){
+    arr2.push(arr[i].href.split('/')[3]);
+}
+arr2
+
+var arr = document.querySelector('#groups_list_future').querySelectorAll('.group_list_row');
+var arr2 = new Array();
+for (var i = 0; i < arr.length; i++){
+    arr2.push(arr[i].id.replace('gl_future',''));
+}
+arr2
