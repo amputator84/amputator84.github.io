@@ -1,0 +1,51 @@
+// ==UserScript==
+// @name         VK_event_to_list_all
+// @namespace    https://vk.com/groups*
+// @version      0.1
+// @description  Mishgen!
+// @author       You
+// @match        https://vk.com/groups*
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+var url_first = 'https://script.google.com/macros/s/AKfycbyq7Dw0zmWI_DWp7wpaAD9Olh7RhiC34Kc0wqMI6voH2E-exJkQ/exec';
+var url_short = '';
+var arr = document.querySelectorAll('.group_list_row');
+for (var i = 0; i < arr.length; i++) {
+	var but = document.createElement('button');
+    var done = document.createElement('span');
+    var city = document.createElement('input');
+    city.setAttribute('id', 'city_in'+url_short);
+	but.className = 'flat_button button_small';
+	url_short = arr[i].querySelector('.group_row_photo').href.replace("https://vk.com/", "");
+	but.textContent = url_short;
+    but.setAttribute('name_url', url_short);
+	done.setAttribute('id', 'done_ret'+url_short);
+	arr[i].querySelector('.flat_button').parentNode.appendChild(but);
+    arr[i].querySelector('.flat_button').parentNode.appendChild(done);
+    arr[i].querySelector('.flat_button').parentNode.appendChild(city);
+	but.onclick = function() {
+        name_url = this.getAttribute('name_url');
+        var city_name = document.querySelector('#city_in').value;
+		setTimeout(function() {
+			GM_xmlhttpRequest({
+				method: 'GET',
+				url: url_first + '?name_url=' + name_url + '&city_name=' + city_name,
+				headers: {
+					'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+					'Accept': 'application/atom+xml,application/xml,text/xml',
+				},
+				onload: function(x) {
+                    console.log('#done_ret'+name_url);
+                    console.log(x.responseText);
+                    document.querySelector('#done_ret'+name_url).textContent = x.responseText;
+				}
+			});
+		}, 0);
+	};
+}
