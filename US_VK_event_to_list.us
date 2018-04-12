@@ -1,0 +1,49 @@
+// ==UserScript==
+// @name         VK_event_to_list
+// @namespace    https://vk.com/*
+// @version      0.1
+// @description  Mishgen!
+// @author       You
+// @match        https://vk.com/*
+// @grant				GM_getValue
+// @grant				GM_setValue
+// @grant				GM_deleteValue
+// @grant				GM_xmlhttpRequest
+// @grant				GM_listValues
+// @grant				GM_registerMenuCommand
+// @grant				GM_log
+// ==/UserScript==
+
+    var url_first = 'https://script.google.com/macros/s/AKfycbyq7Dw0zmWI_DWp7wpaAD9Olh7RhiC34Kc0wqMI6voH2E-exJkQ/exec';
+    var url_short = document.location.href.replace("https://vk.com/", "");
+    var city = document.createElement('input');
+    city.setAttribute('id', 'city_in');
+    var but = document.createElement('button');
+    but.setAttribute('id', 'done');
+    but.textContent = 'EVENT';
+    var done = document.createElement('span');
+    done.setAttribute('id', 'done_ret');
+    var name_but = '';
+    if (document.querySelector('#join_button') !== null) name_but = 'join_button';
+    if (document.querySelector('#public_subscribe') !== null) name_but = 'public_subscribe';
+    if (document.querySelector('#page_actions_btn') !== null) name_but = 'page_actions_btn';
+    document.querySelector('#' + name_but).parentNode.parentNode.appendChild(done);
+    document.querySelector('#' + name_but).parentNode.parentNode.appendChild(but);
+    document.querySelector('#' + name_but).parentNode.parentNode.appendChild(city);
+
+    but.onclick = function() {
+        setTimeout(function() {
+            var city_name = document.querySelector('#city_in').value;
+            GM_xmlhttpRequest({
+                method: 'GET',
+                url: url_first + '?name_url=' + url_short + '&city_name=' + city_name,
+                headers: {
+                    'User-agent': 'Mozilla/4.0 (compatible) Greasemonkey',
+                    'Accept': 'application/atom+xml,application/xml,text/xml',
+                },
+                onload: function(x) {
+                    document.querySelector('#done_ret').textContent = x.responseText;
+                }
+            });
+        }, 0);
+    };
